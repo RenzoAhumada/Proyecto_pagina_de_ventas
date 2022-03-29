@@ -3,11 +3,11 @@ package Servicios;
 
 import entidades.Producto;
 import java.util.List;
-import org.springframework.stereotype.Service;
+
 
 
 public interface productoService{
-     
+    
     List<Producto> listarProductos();
 
      
@@ -21,5 +21,6 @@ public interface productoService{
 
      
     Producto buscarPorNombreProducto(String nombre);
+
 }
 

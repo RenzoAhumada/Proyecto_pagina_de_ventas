@@ -3,6 +3,7 @@ package controladores;
 
 import Servicios.productoService;
 import entidades.Producto;
+import javax.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,34 +33,25 @@ public class ProductoController {
         model.addAttribute("producto", new Producto());
         return "formulario/form-producto";
     }
-
-    @PostMapping("/crear")
-    public String crear(Producto producto) {
-        producto.setNombre(prodcutoservice.findByIdNombreProducto(producto.getProducto().getId()));
-        prodcutoservice.crearProducto(producto);
-        return "redirect:/producto/listar";
-    }
-
+    
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable("id") Integer id, Model model) {
-        if (habitacionService.findByIdHabitacion(id) == null) {
+        if (prodcutoservice.findByIdProducto(id) == null) {
             model.addAttribute("error", "Error al editar");
             return "redirect:/habitacion/listar";
         }
         model.addAttribute("titulo", "Editar Habitacion");
-        model.addAttribute("habitacion", habitacionService.findByIdHabitacion(id));
-        model.addAttribute("categoriaList", categoriaService.listarCategorias());
-        model.addAttribute("niveles", nivelService.listarNiveles());
+        model.addAttribute("habitacion", prodcutoservice.findByIdProducto(id));
         return "formulario/Form-Habitacion";
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable("id") Integer id, Model model) {
-        if (habitacionService.findByIdHabitacion(id) == null) {
+        if (prodcutoservice.findByIdProducto(id) == null) {
             model.addAttribute("error", "Error al eliminar");
             return "redirect:/habitacion/listar";
         }
-        habitacionService.eliminarHabitacion(id);
+        prodcutoservice.eliminarProducto(id);
         return "redirect:/habitacion/listar";
     }
 }
